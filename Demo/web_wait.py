@@ -23,6 +23,5 @@ def element_wait():
 
     # 显示等待 element  not interactable
 
-
 if __name__ == '__main__':
     element_wait()
