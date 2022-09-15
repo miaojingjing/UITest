@@ -2,6 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+
 
 def element_wait():
     driver = webdriver.Chrome()
@@ -30,7 +33,11 @@ def wait_show():
     #原因：页面元素加载是异步加载过程，通常html会先加载完成，js,css其后，元素存在与否有html决定，元素的交互是否css或者决定
     #隐式等待只关注元素能不能找到，不关注元素能否点击或者进行其他的交互
     #解决方案，使用显式等待
+    # 第一个参数是driver,第二个参数是最长等待时间，util方法内需要结合expected_conditions或者自己封装的方法进行使用
+    # expected_conditions的参数传入的都是元组，即多了一层小括号
+    WebDriverWait(driver,10).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR,'#success_btn')))
     driver.find_element(By.ID, "success_btn").click()
+    time.sleep(2)
 
 if __name__ == '__main__':
     wait_show()
