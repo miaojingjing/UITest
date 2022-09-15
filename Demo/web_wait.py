@@ -23,5 +23,14 @@ def element_wait():
 
     # 显示等待 element  not interactable
 
+def wait_show():
+    driver = webdriver.Chrome()
+    driver.get("https://vip.ceshiren.com/#/ui_study")
+    #元素可以找到，但是点击效果没有触发，或者说使用点击等操作，出现报错
+    #原因：页面元素加载是异步加载过程，通常html会先加载完成，js,css其后，元素存在与否有html决定，元素的交互是否css或者决定
+    #隐式等待只关注元素能不能找到，不关注元素能否点击或者进行其他的交互
+    #解决方案，使用显式等待
+    driver.find_element(By.ID, "success_btn").click()
+
 if __name__ == '__main__':
-    element_wait()
+    wait_show()
