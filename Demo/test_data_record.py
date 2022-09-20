@@ -35,3 +35,16 @@ class TestDataRecord(Base):
         self.driver.save_screenshot("res.png")
         assert search_result.text == search_content
 
+    # 现象，：产生了 no such element的错误
+    # 解决方案：在报错的代码行之前打印page_source,确定定位的元素没有问题，主要用于调试
+    def test_page_source_data_record(self):
+        search_content="霍格沃兹测试开发"
+        self.driver.get("https://www.sogou.com/")
+        # 获取page_source
+        with open("record2.html","w",encoding="u8") as f:
+            f.write(self.driver.page_source)
+        self.driver.find_element(By.ID,"query1").send_keys(search_content)
+
+
+
+
